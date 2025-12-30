@@ -1,5 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client.js";
-declare let prisma: PrismaClient;
-export declare const connectToDatabase: () => Promise<void>;
-export { prisma };
+import { PrismaClient } from "@prisma/client";
+export declare const prisma: PrismaClient<import("@prisma/client").Prisma.PrismaClientOptions, never, import("@prisma/client/runtime/library").DefaultArgs>;
+export declare function connectToDatabase(): Promise<void>;
 //# sourceMappingURL=database.d.ts.map
