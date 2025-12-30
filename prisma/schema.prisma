@@ -1,15 +1,193 @@
+// Prisma schema for Horty Coiffure
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
 }
 
+// Enums
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+enum TestimonialStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum NewsStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum UsefulInfoStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum FeedbackStatus {
+  UNREAD
+  READ
+  ARCHIVED
+}
+
+// Models
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  parentId    String?
+  status      Status    @default(ACTIVE)
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  services    Service[]
+  products    Product[]
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  categoryId  String
+  duration    Int       // in minutes
+  price       Float
+  included    String
+  excluded    String
+  status      Status    @default(ACTIVE)
+  image       String?
+  variants    String[]  // Array of variant names
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  category     Category   @relation(fields: [categoryId], references: [id])
+  realizations Realization[]
+  testimonials Testimonial[]
+}
+
+model Realization {
+  id        String   @id @default(cuid())
+  image     String
+  serviceId String
+  caption   String
+  title     String?
+  status    Status   @default(ACTIVE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  service   Service  @relation(fields: [serviceId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  image       String?
+  brand       String?
+  categoryId  String?
+  status      Status   @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  category    Category? @relation(fields: [categoryId], references: [id])
+}
+
+model Partner {
+  id          String   @id @default(cuid())
+  name        String
+  logo        String?
+  description String?
+  website     String?
+  status      Status   @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String            @id @default(cuid())
+  name      String
+  text      String
+  rating    Int
+  serviceId String
+  status    TestimonialStatus @default(PENDING)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  // Relations
+  service   Service           @relation(fields: [serviceId], references: [id])
+}
+
+model News {
+  id          String     @id @default(cuid())
+  title       String
+  content     String
+  image       String?
+  publishedAt DateTime?
+  status      NewsStatus @default(DRAFT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model UsefulInfo {
+  id          String           @id @default(cuid())
+  title       String
+  content     String
+  image       String?
+  publishedAt DateTime?
+  status      UsefulInfoStatus @default(DRAFT)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model Feedback {
+  id        String         @id @default(cuid())
+  rating    Int
+  comment   String
+  status    FeedbackStatus @default(UNREAD)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+// Admin Settings - stored as single record
+model AdminSettings {
+  id             String   @id @default("settings")
+  openingHours   Json     // Array of OpeningHour
+  contactInfo    Json     // ContactInfo object
+  heroSettings   Json     // HeroSettings object
+  socialLinks    Json     // SocialLinks object
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// Appointment Settings
+model AppointmentSettings {
+  id             String   @id @default("appointment_settings")
+  calendlyUrl    String
+  urgencyMode    Boolean  @default(false)
+  urgencyMessage String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
