@@ -54,7 +54,7 @@ model Category {
   description String?
   parentId    String?
   status      Status    @default(ACTIVE)
-  image       String?
+  imageUrl    String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -75,7 +75,7 @@ model Service {
   included    String
   excluded    String
   status      Status    @default(ACTIVE)
-  image       String?
+  imageUrl    String?
   variants    String[]  // Array of variant names
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -88,7 +88,7 @@ model Service {
 
 model Realization {
   id        String   @id @default(cuid())
-  image     String
+  imageUrl  String?
   serviceId String
   caption   String
   title     String?
@@ -105,7 +105,7 @@ model Product {
   name        String
   description String
   price       Float
-  image       String?
+  imageUrl    String?
   brand       String?
   categoryId  String?
   status      Status   @default(ACTIVE)
@@ -145,7 +145,7 @@ model News {
   id          String     @id @default(cuid())
   title       String
   content     String
-  image       String?
+  imageUrl    String?
   publishedAt DateTime?
   status      NewsStatus @default(DRAFT)
   createdAt   DateTime   @default(now())
@@ -156,7 +156,7 @@ model UsefulInfo {
   id          String           @id @default(cuid())
   title       String
   content     String
-  image       String?
+  imageUrl    String?
   publishedAt DateTime?
   status      UsefulInfoStatus @default(DRAFT)
   createdAt   DateTime         @default(now())

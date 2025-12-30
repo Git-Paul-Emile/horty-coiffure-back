@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 //import userRoute from "../routes/user.route.js";
 import { StatusCodes } from "http-status-codes";
 import healthRoute from "../routes/health.route.js";
+import uploadRoute from "../routes/upload.route.js";
 import { AppError } from "../config/utils/AppError.js";
 
 
@@ -52,6 +53,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 // Routes
 app.use('/api/health', healthRoute);
+app.use('/api', uploadRoute);
 
 
 // Middleware pour routes non trouvées
