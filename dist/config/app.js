@@ -3,10 +3,21 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-//import userRoute from "../routes/user.route.js";
 import { StatusCodes } from "http-status-codes";
 import healthRoute from "../routes/health.route.js";
 import uploadRoute from "../routes/upload.route.js";
+import adminSettingsRoute from "../routes/adminSettings.route.js";
+import appointmentSettingsRoute from "../routes/appointmentSettings.route.js";
+import categoryRoute from "../routes/category.route.js";
+import feedbackRoute from "../routes/feedback.route.js";
+import newsRoute from "../routes/news.route.js";
+import partnerRoute from "../routes/partner.route.js";
+import productRoute from "../routes/product.route.js";
+import realizationRoute from "../routes/realization.route.js";
+import serviceRoute from "../routes/service.route.js";
+import testimonialRoute from "../routes/testimonial.route.js";
+import usefulInfoRoute from "../routes/usefulInfo.route.js";
+import userRoute from "../routes/user.route.js";
 import { AppError } from "../config/utils/AppError.js";
 const app = express();
 const allowedOrigins = [
@@ -38,7 +49,19 @@ const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 // Routes
 app.use('/api/health', healthRoute);
-app.use('/api', uploadRoute);
+app.use('/api/upload', uploadRoute);
+app.use('/api/admin-settings', adminSettingsRoute);
+app.use('/api/appointment-settings', appointmentSettingsRoute);
+app.use('/api/categories', categoryRoute);
+app.use('/api/feedbacks', feedbackRoute);
+app.use('/api/news', newsRoute);
+app.use('/api/partners', partnerRoute);
+app.use('/api/products', productRoute);
+app.use('/api/realizations', realizationRoute);
+app.use('/api/services', serviceRoute);
+app.use('/api/testimonials', testimonialRoute);
+app.use('/api/useful-infos', usefulInfoRoute);
+app.use('/api/users', userRoute);
 // Middleware pour routes non trouvées
 app.use((req, res) => {
     res.status(StatusCodes.NOT_FOUND).json({ message: "Route non trouvée" });
