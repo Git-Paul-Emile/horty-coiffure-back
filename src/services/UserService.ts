@@ -2,6 +2,8 @@ import userRepository from '../repository/UserRepository.js';
 import type { User as Utilisateur } from '@prisma/client';
 import type { UtilisateurCreate, UtilisateurUpdate } from '../validators/user.validator.js';
 import { UtilisateurCreateSchema, UtilisateurUpdateSchema } from '../validators/user.validator.js';
+import bcrypt from 'bcrypt';
+import { generateToken } from '../config/jwt.js';
 
 
 class UserService {

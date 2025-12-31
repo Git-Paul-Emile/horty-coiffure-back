@@ -1,5 +1,7 @@
 import userRepository from '../repository/UserRepository.js';
 import { UtilisateurCreateSchema, UtilisateurUpdateSchema } from '../validators/user.validator.js';
+import bcrypt from 'bcrypt';
+import { generateToken } from '../config/jwt.js';
 class UserService {
     userRepository = userRepository; //on réutilise l'instance
     async create(data) {
