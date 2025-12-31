@@ -13,8 +13,8 @@ export declare const ProduitSchema: z.ZodObject<{
 }, z.core.$strip>;
 export declare const ProduitCreateSchema: z.ZodObject<{
     image: z.ZodOptional<z.ZodString>;
-    nom: z.ZodString;
     description: z.ZodString;
+    nom: z.ZodString;
     disponible: z.ZodDefault<z.ZodBoolean>;
     archive: z.ZodDefault<z.ZodBoolean>;
     categorie: z.ZodString;
@@ -22,8 +22,8 @@ export declare const ProduitCreateSchema: z.ZodObject<{
 }, z.core.$strip>;
 export declare const ProduitUpdateSchema: z.ZodObject<{
     image: z.ZodOptional<z.ZodOptional<z.ZodString>>;
-    nom: z.ZodOptional<z.ZodString>;
     description: z.ZodOptional<z.ZodString>;
+    nom: z.ZodOptional<z.ZodString>;
     disponible: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
     archive: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
     categorie: z.ZodOptional<z.ZodString>;

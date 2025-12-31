@@ -11,16 +11,16 @@ export declare const PartenaireSchema: z.ZodObject<{
     modifieLe: z.ZodOptional<z.ZodDate>;
 }, z.core.$strip>;
 export declare const PartenaireCreateSchema: z.ZodObject<{
-    nom: z.ZodString;
     description: z.ZodOptional<z.ZodString>;
+    nom: z.ZodString;
     disponible: z.ZodDefault<z.ZodBoolean>;
     archive: z.ZodDefault<z.ZodBoolean>;
     logo: z.ZodOptional<z.ZodString>;
     siteWeb: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export declare const PartenaireUpdateSchema: z.ZodObject<{
-    nom: z.ZodOptional<z.ZodString>;
     description: z.ZodOptional<z.ZodOptional<z.ZodString>>;
+    nom: z.ZodOptional<z.ZodString>;
     disponible: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
     archive: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
     logo: z.ZodOptional<z.ZodOptional<z.ZodString>>;

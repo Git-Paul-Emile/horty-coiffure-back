@@ -9,18 +9,18 @@ export declare const TestimonialStatusEnum: z.ZodEnum<{
     REJECTED: "REJECTED";
 }>;
 export declare const NewsStatusEnum: z.ZodEnum<{
+    ARCHIVED: "ARCHIVED";
     DRAFT: "DRAFT";
     PUBLISHED: "PUBLISHED";
-    ARCHIVED: "ARCHIVED";
 }>;
 export declare const UsefulInfoStatusEnum: z.ZodEnum<{
     DRAFT: "DRAFT";
     PUBLISHED: "PUBLISHED";
 }>;
 export declare const FeedbackStatusEnum: z.ZodEnum<{
-    ARCHIVED: "ARCHIVED";
     UNREAD: "UNREAD";
     READ: "READ";
+    ARCHIVED: "ARCHIVED";
 }>;
 export declare const CategorieProduitSchema: z.ZodString;
 //# sourceMappingURL=enums.d.ts.map
